@@ -1,0 +1,144 @@
+import java.util.*;
+class AddedLinkedList {
+  Node head;
+  private int size;
+
+  AddedLinkedList(){
+    this.size = 0;
+  }
+  class Node {
+    String data;
+    Node next;
+
+    //default contructor
+    Node(String data){
+      this.data = data;
+      this.next = null;
+      size++;
+    }
+  }
+
+  //add at first
+  public void addFirst(String data){
+    Node newNode = new Node(data);
+    if(head == null){
+      head = newNode;
+      return;
+    }
+    newNode.next = head;
+    head = newNode;
+    
+  }
+
+  //add last function
+  public void addLast(String data){
+    Node lastNode = new Node(data);
+    if(head == null){
+      head = lastNode;
+      return;
+    }
+    Node currNode = head;
+    while(currNode.next != null){
+      currNode= currNode.next;
+    }
+    currNode.next = lastNode;
+
+  }
+
+  //print a linkedList
+  public void print(){
+    Node currNode = head;
+    if(head == null){
+      System.out.println("No elements in the list");
+      return;
+    }
+    while(currNode != null){
+      System.out.println(currNode.data);
+      currNode = currNode.next;
+    }
+    
+  }
+  
+  //insert in middle
+  public void insertMiddle(int index, String data){
+    if(index > size || index < 0){
+      System.out.println("Invalid index");
+      return;
+    }
+    size++;
+    Node newNode = new Node(data);
+    if(head == null || index == 0){
+      newNode.next = head;
+      head = newNode;
+      return;
+    }
+
+    Node currNode = head;
+    for(int i = 1; i < size; i++){
+      if(i == index){
+        // Node nextNode = currNode.next;
+        newNode.next = currNode.next;
+        currNode.next = newNode;
+        break;
+      }
+      currNode = currNode.next;
+    }
+  }
+
+  //reverseLinkedList
+  public void rerverseLinkedList(){
+    if(head == null || head.next == null){
+      return ;
+    }
+
+    Node prevNode = head;
+    Node currNode = head.next;
+
+    while(currNode != null){
+      Node nextNode = currNode.next;
+      currNode.next = prevNode;
+
+      //update
+      prevNode = currNode;
+      currNode = nextNode;
+    }
+    head.next = null;
+    head = prevNode;
+  }
+
+  //get the size of the linkedList
+  public int getSize(){
+    return size;
+  }
+  public static void main(String[] args){
+    AddedLinkedList LL = new AddedLinkedList();
+    LL.addFirst("hello");
+    LL.addFirst("World");
+    LL.print();
+    System.out.println();
+    
+    LL.addLast("one");
+    LL.print();
+    System.out.println();
+    
+    LL.addFirst("first");
+    LL.print();
+    System.out.println();
+    
+    LL.print();
+    System.out.println();
+
+    LL.print();
+
+    System.out.println(LL.getSize());
+
+    LL.insertMiddle(0,"bro");
+    LL.print();
+    System.out.println();
+
+    LL.rerverseLinkedList();
+    LL.print();
+    
+     
+  }
+}
